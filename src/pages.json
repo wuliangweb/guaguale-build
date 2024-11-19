@@ -1,9 +1,31 @@
 {
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		// 简单刮刮乐
 		{
-			"path": "pages/index/index",
+			"path": "pages/AyLottery",
 			"style": {
-				"navigationBarTitleText": "uni-app"
+				"navigationBarTitleText": "AyLottery"
+			}
+		},
+		// 大转盘 
+		{
+			"path": "pages/activity/draw",
+			"style": {
+				"navigationBarTitleText": "WhatToEat"
+			}
+		},
+		// 老虎机
+		{
+			"path": "pages/slotMachine/lottery-draw",
+			"style": {
+				"navigationBarTitleText": "WhatToEat"
+			}
+		},
+		// 模拟福彩刮刮乐
+		{
+			"path": "pages/ScratchTicket",
+			"style": {
+				"navigationBarTitleText": "ScratchTicket"
 			}
 		}
 	],
@@ -11,6 +33,8 @@
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "uni-app",
 		"navigationBarBackgroundColor": "#F8F8F8",
-		"backgroundColor": "#F8F8F8"
-	}
+		"backgroundColor": "#F8F8F8",
+		"navigationStyle": "custom"
+	},
+	"uniIdRouter": {}
 }
