@@ -1,12 +1,12 @@
 {
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 		// 简单刮刮乐
-		{
-			"path": "pages/AyLottery",
-			"style": {
-				"navigationBarTitleText": "AyLottery"
-			}
-		},
+		// {
+		// 	"path": "pages/AyLottery",
+		// 	"style": {
+		// 		"navigationBarTitleText": "AyLottery"
+		// 	}
+		// },
 		// 大转盘 
 		{
 			"path": "pages/activity/draw",
