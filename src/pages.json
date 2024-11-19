@@ -8,12 +8,12 @@
 		// 	}
 		// },
 		// 大转盘 
-		{
-			"path": "pages/activity/draw",
-			"style": {
-				"navigationBarTitleText": "WhatToEat"
-			}
-		},
+		// {
+		// 	"path": "pages/activity/draw",
+		// 	"style": {
+		// 		"navigationBarTitleText": "WhatToEat"
+		// 	}
+		// },
 		// 老虎机
 		{
 			"path": "pages/slotMachine/lottery-draw",
