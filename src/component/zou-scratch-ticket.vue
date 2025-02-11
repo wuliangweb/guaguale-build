@@ -2,7 +2,7 @@
 	<view class="scratch-ticket-page">
 		<image class="scratch-ticket-bg" :src="bgImg" mode="widthFix"></image>
 		<canvas class="canvas" type="2d" id="canvas-number"></canvas>
-		<canvas class="canvas" type="2d" id="canvas-layer" @touchstart="touchstart" @touchmove="touchmove"></canvas>
+		<canvas class="canvas" type="2d" id="canvas-layer" disable-scroll @touchstart="touchstart" @touchmove="touchmove"></canvas>
 	</view>
 </template>
 
@@ -10,6 +10,7 @@
 	export default {
 		data() {
 			return {
+				containerHeight: 0,
 				bgImg: '/static/wukong-bg.jpg', // 背景图
 				layerImg: `/static/wukong-layer.png`, // 刮刮乐图层
 				ctx: null,
@@ -23,6 +24,34 @@
 			// 绘制图层
 			async drawLayerInit() {
 				let that = this;
+
+				// #ifdef H5
+				const canvasNumber = document.querySelector('#canvas-layer canvas')
+				that.ctx = canvasNumber.getContext("2d");
+				const { width, height } = canvasNumber.getBoundingClientRect();
+				const dpr = window.devicePixelRatio;
+				
+				// 设置物理像素
+				canvasNumber.width = width * dpr;
+				canvasNumber.height = height * dpr;
+				canvasNumber.style.width = `${width}px`;
+				canvasNumber.style.height = `${height}px`;
+				
+				const systemInfo = uni.getSystemInfoSync();
+				let wdthDpr = systemInfo.windowWidth / 375;
+				// 图层
+				let layerImg = new Image;
+				layerImg.src = that.layerImg;
+				layerImg.onload = (res) => {
+					that.ctx.drawImage(layerImg, 0, 0, wdthDpr * 323, wdthDpr *
+						244);
+					that.ctx.lineWidth = 40;
+					that.ctx.lineCap = "round";
+					that.ctx.lineJoin = "round";
+					that.ctx.globalCompositeOperation = 'destination-out';
+				}	
+				// #endif
+				// #ifndef H5
 				const query = uni.createSelectorQuery().in(this);
 				query
 					.select("#canvas-layer")
@@ -51,10 +80,53 @@
 							that.ctx.globalCompositeOperation = 'destination-out';
 						}
 					})
+				// #endif
 			},
 			// 绘制刮刮乐号码
 			drawNumberInit() {
 				let that = this;
+				// #ifdef H5
+				const canvasNumber = document.querySelector('#canvas-number canvas')
+				const { width, height } = canvasNumber.getBoundingClientRect();
+				const dpr = window.devicePixelRatio;
+				
+				// 设置物理像素
+				canvasNumber.width = width * dpr;
+				canvasNumber.height = height * dpr;
+				canvasNumber.style.width = `${width}px`;
+				canvasNumber.style.height = `${height}px`;
+				
+				const ctx = canvasNumber.getContext('2d');
+				ctx.scale(dpr, dpr);
+				ctx.font = "normal bold 10px sans-serif";
+				ctx.fillStyle = "#333333";
+				const systemInfo = uni.getSystemInfoSync();
+				let wdthDpr = systemInfo.windowWidth / 375 / dpr;
+				// let wdthDpr = window.devicePixelRatio;
+				// 中奖号码
+				ctx.fillText(that.randNumber(), wdthDpr * 120, wdthDpr * 40);
+				ctx.fillText(that.randNumber(), wdthDpr * 180, wdthDpr * 40);
+				// 刮奖号码
+				// 生成一个4x5数组
+				const numberArr = new Array(4).fill('').map(item => new Array(5).fill(1));
+				numberArr.forEach((data, dataIndex) => {
+					data.forEach((item, index) => {
+						ctx.fillText(that.randNumber(), wdthDpr * (20 + 65 * index), wdthDpr *
+							(85 + 45 * dataIndex));
+					})
+				})
+				ctx.font = "normal bold 4px sans-serif";
+				ctx.fillStyle = "#999999";
+				numberArr.forEach((data, dataIndex) => {
+					data.forEach((item, index) => {
+						ctx.fillText(`￥${that.randNumber()}.00`, wdthDpr * (5 + 65 * index),
+							wdthDpr * (100 + 45 * dataIndex));
+					})
+				})
+				ctx.restore();
+				that.drawLayerInit();				
+				// #endif
+				// #ifndef H5
 				const query = uni.createSelectorQuery().in(this);
 				query
 					.select("#canvas-number")
@@ -96,8 +168,10 @@
 						ctx.restore();
 						that.drawLayerInit();
 					})
+				// #endif
 			},
 			touchstart(e) {
+				e.preventDefault()
 				let startX = e.changedTouches[0].x;
 				let startY = e.changedTouches[0].y;
 				let startPoint = {
@@ -108,6 +182,7 @@
 				this.ctx.beginPath();
 			},
 			touchmove(e) {
+				e.preventDefault()
 				let moveX = e.changedTouches[0].x;
 				let moveY = e.changedTouches[0].y;
 				let movePoint = {
