@@ -1,5 +1,12 @@
 {
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		// 模拟福彩刮刮乐
+		{
+			"path": "pages/ScratchTicket",
+			"style": {
+				"navigationBarTitleText": "ScratchTicket"
+			}
+		},		
 		// 简单刮刮乐
 		{
 			"path": "pages/AyLottery",
@@ -19,13 +26,6 @@
 			"path": "pages/slotMachine/lottery-draw",
 			"style": {
 				"navigationBarTitleText": "WhatToEat"
-			}
-		},
-		// 模拟福彩刮刮乐
-		{
-			"path": "pages/ScratchTicket",
-			"style": {
-				"navigationBarTitleText": "ScratchTicket"
 			}
 		}
 	],
