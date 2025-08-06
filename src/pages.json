@@ -1,5 +1,12 @@
 {
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		// 老虎机
+		{
+			"path": "pages/slotMachine/lottery-draw",
+			"style": {
+				"navigationBarTitleText": "WhatToEat"
+			}
+		},
 		// 大转盘 
 		{
 			"path": "pages/activity/draw",
@@ -19,13 +26,6 @@
 			"path": "pages/AyLottery",
 			"style": {
 				"navigationBarTitleText": "AyLottery"
-			}
-		},
-		// 老虎机
-		{
-			"path": "pages/slotMachine/lottery-draw",
-			"style": {
-				"navigationBarTitleText": "WhatToEat"
 			}
 		}
 	],
