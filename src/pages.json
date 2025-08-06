@@ -1,5 +1,12 @@
 {
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		// 大转盘 
+		{
+			"path": "pages/activity/draw",
+			"style": {
+				"navigationBarTitleText": "WhatToEat"
+			}
+		},
 		// 模拟福彩刮刮乐
 		{
 			"path": "pages/ScratchTicket",
@@ -12,13 +19,6 @@
 			"path": "pages/AyLottery",
 			"style": {
 				"navigationBarTitleText": "AyLottery"
-			}
-		},
-		// 大转盘 
-		{
-			"path": "pages/activity/draw",
-			"style": {
-				"navigationBarTitleText": "WhatToEat"
 			}
 		},
 		// 老虎机
